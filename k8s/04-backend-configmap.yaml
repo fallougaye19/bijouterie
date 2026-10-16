@@ -11,6 +11,6 @@ data:
   DB_HOST: mysql
   DB_PORT: "3306"
   DB_NAME: bijouterie
-  SHOP_NAME: Bijouterie de Fallou
+  SHOP_NAME: Bijouterie de Fallou - Or
   CURRENCY: EUR
   MAX_FILE_SIZE_MB: "5"
