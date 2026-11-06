@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  namespace: bijouterie
+  labels:
+    app: bijouterie
+    tier: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bijouterie
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: bijouterie
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: fallougaye/bijouterie-frontend:1
+          ports:
+            - containerPort: 80
+          envFrom: # récupère les variables d'environnement à partir du configMap
+            - configMapRef:
+                name: frontend-config
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "200m"
+          livenessProbe: # vérifie si le conteneur est vivant et redémarre le conteneur si la sonde échoue
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          readinessProbe: # vérifie si le conteneur est prêt à recevoir du trafic et ne le marque pas comme prêt tant que la sonde échoue
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 3
+            periodSeconds: 5
