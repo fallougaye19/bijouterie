@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: bijouterie
+  labels:
+    app: bijouterie
+    tier: frontend
+data:
+  BACKEND_URL: "http://backend:3000"  # URL du backend
+  Max_Upload_Size: "6m"   # Taille maximale de téléchargement pour les fichiers
