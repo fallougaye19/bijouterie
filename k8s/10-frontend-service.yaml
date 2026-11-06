@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend    # nom du service
+  namespace: bijouterie
+  labels:
+    app: bijouterie
+    tier: frontend
+spec:
+  type: NodePort   #type de service exposé sur un port du noeud
+  selector:
+    app: bijouterie
+    tier: frontend
+  ports:
+    - port: 80
+      targetPort: 80   #port du conteneur exposé par le service
+      nodePort: 30080   #port du noeud exposé par le service
+
