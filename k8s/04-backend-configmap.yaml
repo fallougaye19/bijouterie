@@ -8,7 +8,7 @@ metadata:
     tier: backend
 data:
   PORT: "3000"  #port sur lequel le backend écoute les requêtes
-  DB_HOST: "mysql-service"  #nom du service de la base de données MySQL
+  DB_HOST: "mysql"  #nom du service de la base de données MySQL
   DB_PORT: "3306"    #port sur lequel la base de données MySQL écoute les requêtes
   DB_NAME: "bijouterie"  #nom de la base de données
   SHOP_NAME: "Bijouterie de Fallou"  #nom de la boutique
