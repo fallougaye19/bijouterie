@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: bijouterie
+  labels:
+    app: bijouterie
+    tier: backend
+data:
+  PORT: "3000"  #port sur lequel le backend écoute les requêtes
+  DB_HOST: "mysql-service"  #nom du service de la base de données MySQL
+  DB_PORT: "3306"    #port sur lequel la base de données MySQL écoute les requêtes
+  DB_NAME: "bijouterie"  #nom de la base de données
+  SHOP_NAME: "Bijouterie de Fallou"  #nom de la boutique
+  CURRENCY: "EUR"  #devise utilisée
+  MAX_FILE_SIZE_MB: "5"  #taille maximale des fichiers téléversés (en Mo)

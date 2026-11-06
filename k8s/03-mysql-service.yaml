@@ -7,7 +7,7 @@ metadata:
     app: bijouterie
     tier: database
 spec:
-  type: ClusterIP
+  type: ClusterIP 
   selector:
     app: bijouterie
     tier: database
