@@ -8,6 +8,8 @@ metadata:
     tier: database
 spec:
   replicas: 1   # nombre de réplicas du déploiement
+  strategy:
+    type: Recreate   # stratégie de déploiement (Recreate ou RollingUpdate)
   selector:
     matchLabels:      # labels pour sélectionner les pods gérés par ce déploiement
       app: bijouterie
@@ -20,7 +22,7 @@ spec:
     spec:      # spécification du pod
       containers:
       - name: mysql
-        image: fallougaye/bijouterie-mysql:1   
+        image: mysql:8.4   
         ports:
           - containerPort: 3306
         envFrom:      # récupère les variables d'environnement à partir du secret
@@ -33,3 +35,16 @@ spec:
           limits:
             memory: "1Gi"
             cpu: "500m"
+        volumeMounts:   # monte le volume persistant dans le conteneur
+          - name: mysql-data    # monte le volume persistant pour les données de la base de données
+            mountPath: /var/lib/mysql
+          - name: mysql-init   # monte le volume pour le script d'initialisation de la base de données
+            mountPath: /docker-entrypoint-initdb.d
+            readOnly: true
+      volumes:   # définit le volume persistant pour le pod
+        - name: mysql-data    # définit le volume persistant pour les données de la base de données
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+        - name: mysql-init    # définit le volume pour le script d'initialisation de la base de données
+          configMap:
+            name: mysql-init
