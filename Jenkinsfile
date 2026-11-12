@@ -50,21 +50,21 @@ pipeline {
             }
         }
 
-        stage('Login Docker Hub') {
-            steps {
-                // Connexion à Docker Hub avec les identifiants stockés dans Jenkins
-                withCredentials([
-                    usernamePassword(
-                        credentialsId: 'dockerhubcredentials', 
-                        usernameVariable: 'DOCKERHUB_USER', 
-                        passwordVariable: 'DOCKERHUB_TOKEN'
-                    )
-                ]) {
-                    // Connexion à Docker Hub avec les identifiants stockés dans Jenkins
-                    bat 'echo %DOCKERHUB_TOKEN% | docker login -u %DOCKERHUB_USER% --password-stdin'
-                }
-            }
-        }
+        // stage('Login Docker Hub') {
+        //     steps {
+        //         // Connexion à Docker Hub avec les identifiants stockés dans Jenkins
+        //         withCredentials([
+        //             usernamePassword(
+        //                 credentialsId: 'dockerhubcredentials', 
+        //                 usernameVariable: 'DOCKERHUB_USER', 
+        //                 passwordVariable: 'DOCKERHUB_TOKEN'
+        //             )
+        //         ]) {
+        //             // Connexion à Docker Hub avec les identifiants stockés dans Jenkins
+        //             bat 'echo %DOCKERHUB_TOKEN% | docker login -u %DOCKERHUB_USER% --password-stdin'
+        //         }
+        //     }
+        // }
 
         stage('Push') {
             steps {
