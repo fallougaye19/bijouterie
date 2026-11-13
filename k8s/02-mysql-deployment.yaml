@@ -9,7 +9,7 @@ metadata:
 spec:
   replicas: 1   # nombre de réplicas du déploiement
   strategy:
-    type: Recreate   # stratégie de déploiement (Recreate ou RollingUpdate)
+    type: Recreate   # stratégie de déploiement
   selector:
     matchLabels:      # labels pour sélectionner les pods gérés par ce déploiement
       app: bijouterie
