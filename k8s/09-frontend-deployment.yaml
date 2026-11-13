@@ -20,7 +20,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: fallougaye/bijouterie-frontend:1
+          null17
           ports:
             - containerPort: 80
           envFrom: # récupère les variables d'environnement à partir du configMap
