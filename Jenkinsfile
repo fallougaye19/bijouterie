@@ -48,16 +48,10 @@ pipeline {
         stage('Push') {
             steps {
                 echo 'Publication des images sur Docker Hub'
-                withCredentials([usernamePassword(
-                    credentialsId: 'dockerhub-credentials',
-                    usernameVariable: 'DH_USER',
-                    passwordVariable: 'DH_TOKEN'
-                )]) {
-                    bat 'echo %DH_TOKEN% | docker login -u %DH_USER% --password-stdin'
-                    bat 'docker push %FRONTEND_IMAGE%:%BUILD_NUMBER%'
-                    bat 'docker push %BACKEND_IMAGE%:%BUILD_NUMBER%'
-                    bat 'docker push %MYSQL_IMAGE%:%BUILD_NUMBER%'
-                }
+                bat 'echo %DH_TOKEN% | docker login -u %DH_USER% --password-stdin'
+                bat 'docker push %FRONTEND_IMAGE%:%BUILD_NUMBER%'
+                bat 'docker push %BACKEND_IMAGE%:%BUILD_NUMBER%'
+                bat 'docker push %MYSQL_IMAGE%:%BUILD_NUMBER%'
             }
         }
         // Mise a jour automatique des manifests Kubernetes
