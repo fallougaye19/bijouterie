@@ -65,21 +65,15 @@ pipeline {
                     ]
                     cibles.each { fichier, image ->
                         def contenu = readFile(file: fichier, encoding: 'UTF-8')
-
-                        def motif = /(?m)(image:\s*${java.util.regex.Pattern.quote(image)}:)[^\r\n]+/
-
+                        def motif = "(?m)(image:\\s*${java.util.regex.Pattern.quote(image)}:)[^\\r\\n]+"
                         def remplacement = '$1' + env.BUILD_NUMBER
-                        def matcher = motif.matcher(contenu)
-                        def nouveauContenu = matcher.replaceAll(remplacement)
-
+                        def nouveauContenu = contenu.replaceAll(motif, remplacement)
                         if (nouveauContenu == contenu) {
                             error("Aucune image correspondante trouvee dans ${fichier}")
                         }
-
                         if (!nouveauContenu.contains("image: ${image}:${env.BUILD_NUMBER}")) {
                             error("Le remplacement de l'image a echoue dans ${fichier}")
                         }
-
                         writeFile(file: fichier, text: nouveauContenu, encoding: 'UTF-8')
                         echo "Manifest mis a jour : ${fichier}"
                     }
