@@ -22,7 +22,7 @@ spec:
     spec:      # spécification du pod
       containers:
       - name: mysql
-        null14
+        image: fallougaye/bijouterie-mysql:1   # image du conteneur
         ports:
           - containerPort: 3306
         envFrom:      # récupère les variables d'environnement à partir du secret
