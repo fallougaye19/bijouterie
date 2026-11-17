@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: bijouterie
+  namespace: argocd
+spec:
+  project: default   
+  source:
+    repoURL: https://github.com/fallougaye19/bijouterie.git
+    targetRevision: main
+    path: k8s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: bijouterie
+  syncPolicy:   # définit la politique de synchronisation pour l'application ArgoCD
+    automated:
+      prune: true   # supprime les ressources qui ne sont plus définies dans le dépôt Git
+      selfHeal: true  # restaure automatiquement les ressources qui ont été modifiées en dehors d'ArgoCD
+    syncOptions:
+      - CreateNamespace=true   # crée automatiquement le namespace si celui-ci n'existe pas
